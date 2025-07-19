@@ -106,6 +106,44 @@ Run the test suite:
 python manage.py test
 ```
 
+## Assumptions
+
+### User Management
+- Users can both own vehicles and make bookings (single user model)
+- JWT tokens are used for authentication with 1-hour access token lifetime
+- User registration requires email, username, and password confirmation
+
+### Vehicle Management
+- Each vehicle belongs to one owner (user)
+- Vehicle status automatically updates based on booking status
+- Plate numbers must be unique across the system
+- Daily rates must be positive values
+
+### Booking Management
+- Bookings are scoped to individual users (users can only see their own bookings)
+- Vehicle availability is checked to prevent double-booking
+- Total amount is calculated automatically based on daily rate and duration
+- Deposit amount is set to 20% of total booking amount
+- Booking dates must be in the future
+
+### Payment System
+- Deposit system is mocked (no real payment processing)
+- Deposit tracking is included but not integrated with external payment providers
+- Payment status is tracked through boolean fields
+
+### Database
+- PostgreSQL is used as the primary database
+- All timestamps are stored in UTC timezone
+
+### Security
+- JWT authentication is used for API access
+- All endpoints require authentication except registration and login
+
+### API Design
+- Pagination is implemented with 10 items per page
+- Error responses include descriptive messages
+
+  
 The project includes comprehensive tests for:
 - User registration and authentication
 - Vehicle CRUD operations
